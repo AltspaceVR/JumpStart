@@ -25,7 +25,6 @@
 
 		<!-- Window-Level Event Callbacks -->
 		<script>
-
 			var myOptions =
 			{
 				"titleImageURL": "misc/combobreakertitle.png",
@@ -87,13 +86,11 @@
 
 						testChip = JumpStart.syncedInstances[x];
 
-/*
-						if( g_chipPointer.position.x === testChip.position.x && g_chipPointer.position.y - testChip.position.y < g_BlockWidth * 2 )
-						{
-							console.log("Col is full!");
-							return;
-						}
-*/
+						var columnIsFull = (
+                            g_chipPointer.position.x === testChip.position.x &&
+                            g_chipPointer.position.y - testChip.position.y < g_BlockWidth * 2);
+
+						if(columnIsFull) { return; }
 					}
 
 					// Now drop the token!
@@ -216,11 +213,13 @@
 				}
 
 				// If no chip pointer is spawned with 5 seconds, make one ourselves
-				if( g_chipPointer === null )
+				if( g_chipPointer === null ) {
 					setTimeout(function()
 					{
 						if( g_chipPointer )
+						{
 							return;
+						}
 
 						g_chipPointer = JumpStart.spawnInstance("models/FourInRow/pointer.obj");
 						g_chipPointer.position.copy(g_worldOffset).add(new THREE.Vector3(0, g_BlockWidth * 7.0, 0));
@@ -237,8 +236,10 @@
 						// START SIMULATION
 						JumpStart.run();
 					}, 2000);
-				else
+				}
+				else {
 					JumpStart.run();
+				}
 			}
 		</script>
 
